@@ -1,6 +1,8 @@
-# Práctica 1
+# Práctica 1 - Basic Vacuum Cleaner
 Esta práctica implementa el control reactivo de una aspiradora robótica utilizando una máquina de estados finitos (FSM).
 Mi objetivo es que la aspiradora se desplace de forma autónoma, limpiando el entorno mientras detecta y evita obstáculos mediante su sensor de colisión (bumper).
+
+He utilizado la documentación de usuario de Unibotics para este ejercicio: https://jderobot.github.io/RoboticsAcademy/exercises/MobileRobots/vacuum_cleaner
 
 ## Descripción general
 He diseñado un comportamiento de navegación en el que la aspiradora alterna entre tres estados principales:
@@ -50,3 +52,4 @@ https://github.com/user-attachments/assets/754486b6-0b23-4b84-b45d-54d19cbe3e7d
 Tras un rato de ejecución obtenemos este resultado:
 
 <img width="1103" height="329" alt="funcionamiento" src="https://github.com/user-attachments/assets/512b0a7b-839f-44d2-b417-10f7fa941581" />
+
