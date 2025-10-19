@@ -16,7 +16,7 @@ max1 = np.array([10, 255, 255])
 min2 = np.array([170, 100, 100])
 max2 = np.array([180, 255, 255])
 ```
-Combino ambas máscaras (mask1 y mask2) con una operación bitwise_or, y después calculo el centroide de la región roja en la mitad inferior de la imagen (ROI).
+Combino ambas máscaras (`mask1` y `mask2`) con una operación `bitwise_or`, y después calculo el centroide de la región roja en la mitad inferior de la imagen (ROI).
 Este centroide representa el punto medio de la línea que el coche debe seguir.
 
 ### Control del giro (PID angular)
@@ -78,3 +78,4 @@ https://github.com/user-attachments/assets/bca9bd35-0419-4e17-a2af-eff2e54339f5
 ## Conclusiones
 
 El coche se comporta adecuadamente en los diferentes circuitos, aunque en los Ackermann le cuesta un poco más. Sigue la línea y se recupera bien en curvas y zonas complicadas. En general, el sistema demuestra un comportamiento robusto y eficiente.
+
