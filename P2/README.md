@@ -68,9 +68,13 @@ Cuando el procesador está sobrecargado, la frecuencia del bucle de control no s
 ## Vídeos
 En este vídeo se observa cómo el coche completa una vuelta al circuito en 53 segundos. Sin embargo, el mejor tiempo no lo he grabado, que han sido 50 segundos.
 
+https://github.com/user-attachments/assets/96f35e2f-e85d-405e-8755-0a32fb9d3bc6
 
 
 En este otro vídeo se observa cómo el coche se recupera al perder la línea.
 
+https://github.com/user-attachments/assets/bca9bd35-0419-4e17-a2af-eff2e54339f5
 
+## Conclusiones
 
+El coche se comporta adecuadamente en los diferentes circuitos, aunque en los Ackermann le cuesta un poco más. Sigue la línea y se recupera bien en curvas y zonas complicadas. En general, el sistema demuestra un comportamiento robusto y eficiente.
