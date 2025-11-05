@@ -37,3 +37,13 @@ Al aproximarse a algunos objetivos, el vector de atracción aumentaba demasiado,
 Cuando el coche se encontraba muy cerca del objetivo, el vector atractivo se volvía demasiado pequeño, lo que podía hacer que el coche se detuviera antes de alcanzarlo completamente. Para corregirlo, establecí también una magnitud mínima, asegurando que el coche mantuviera impulso suficiente hasta completar la llegada al objetivo.
 
 ## Vídeos
+Este es el funcionamiento de la práctica, tarda en terminar el circuito ya que he dado más importancia a la seguridad.
+
+https://github.com/user-attachments/assets/bd27a004-6554-4e1e-8202-b888cf8092b7
+
+Este es el mismo vídeo pero con la velocidad aumentada:
+
+https://github.com/user-attachments/assets/2379f652-7c80-4efc-b374-48bff990a194
+
+## Conclusiones
+En conclusión, he conseguido un sistema de navegación local reactiva estable y eficiente, asegurando la seguridad.
