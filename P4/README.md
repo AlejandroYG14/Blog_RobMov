@@ -36,7 +36,11 @@ He generado una representación del campo combinado normalizado, mostrando con `
 - En algunas ocasiones, el subobjetivo no apuntaba exactamente al destino que había marcado, así que he aplicado histéresis y límites de radio para estabilizar la trayectoria.
 
 ## Vídeo
+Aquí tenemos un ejemplo de ejecución marcando cuatro destinos:
+
+https://github.com/user-attachments/assets/57094417-6a01-4524-8964-71b957473b70
 
 
 ## Conclusión
-Finalmente, he conseguido diseñar un sistema de navegación global segura y eficiente.
+Finalmente, he conseguido diseñar un sistema de navegación global seguro y eficiente.
+
