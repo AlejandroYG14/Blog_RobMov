@@ -45,11 +45,17 @@ El bucle de control se compone de tres tareas que se repiten a alta frecuencia:
 1. Ejecuto el módulo de navegación reactiva.
 2. Actualizo el mapa de ocupación si el robot se ha movido lo suficiente.
 3. Envío el mapa resultante a la interfaz gráfica.
-4. Mientras el programa está activo, el robot continúa moviéndose, mapeando y ajustando su trayectoria para evitar colisiones.
+
+Mientras el programa está activo, el robot continúa moviéndose, mapeando y ajustando su trayectoria para evitar colisiones.
 
 ### Vídeo
 Aquí tenemos un ejemplo de ejecución:
 
 
+https://github.com/user-attachments/assets/227d6f38-3fe5-4f2e-ba47-27967d2a6a61
+
+
+
 ### Conclusión
 Con este ejercicio he creado un sistema que combina navegación reactiva y mapeado probabilístico. El robot es capaz de moverse de manera autónoma sin un objetivo previo, evitando obstáculos y construyendo al mismo tiempo un mapa detallado del entorno
+
