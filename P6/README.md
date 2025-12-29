@@ -50,7 +50,11 @@ He gobernado el comportamiento del robot mediante una máquina de estados. Gesti
 - Gestión de mapa: Cargo la configuración de las balizas desde un archivo YAML, almacenando sus posiciones en la variable ```tags_world```.
 
 ## Vídeo
+En este vídeo se muestra la práctica funcionando:
+
+https://github.com/user-attachments/assets/79595034-6dff-4014-904b-56cd077adcc1
 
 
 ## Conclusión
+He logrado integrar la localización visual precisa con una navegación reactiva robusta, permitiendo al robot operar de forma autónoma en el entorno.
 
