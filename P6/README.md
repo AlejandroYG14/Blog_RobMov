@@ -9,45 +9,38 @@ He usado la documentación de Unibotics para la práctica: https://jderobot.gith
 ### Sistema de visión y calibración
 
 Utilizo la librería ```pyapriltags``` para la detección de marcadores en la imagen. He configurado el sistema de la siguiente manera:
-- Modelo de cámara: Defino una matriz de cámara intrínseca basada en las dimensiones de la imagen recibida.
+- Modelo de cámara: Configuración de una matriz de cámara intrínseca adaptativa en base al tamaño del frame de vídeo, aplicando un factor de escala focal de `0.87 * w`.
 
-- Transformaciones geométricas: He implementado una cadena cinemática completa para transformar la posición relativa del tag detectado a la posición global del robot. Para ello:
-  - He aplicado una corrección de la inclinación de la cámara (Pitch) en la matriz de rotación inicial.
-  - Alineo los ejes de coordenadas de visión (OpenCV) con los del robot usando la matriz ```T_cv_fix```.
-  - Utilizo la función ```rpy_to_rot``` para manejar las rotaciones en el espacio 3D.
+- Transformaciones geométricas (PnP): Cuando hay tags en el campo de visión, el sistema calcula el área de cada una y selecciona exclusivamente la baliza más grande (más cercana), garantizando precisión geométrica.
+
+- Con la baliza óptima seleccionada, se ejecuta el algoritmo Perspective-n-Point (`cv2.solvePnP`) empleando los puntos tridimensionales fijos del tag (`object_points`).
+
+- La matriz resultante se invierte y se compone con la matriz de pose absoluta del tag obtenido del mapa global (`tags_world`). Finalmente, se realiza un cambio y reajuste de ejes espaciales (de OpenCV al sistema del robot) para extraer las coordenadas globales finales (`est_x`, `est_y`, `est_yaw`).
 
 ### Algoritmo de localización
 
-He diseñado un enfoque híbrido para determinar la pose del robot:
-- Estimación visual (PnP): Cuando se detecta un tag válido dentro del rango (```MAX_VISUAL_RANGE```), utilizo el algoritmo Perspective-n-Point (```cv2.solvePnP```) con los puntos del objeto (```object_points```) para obtener la posición precisa.
-- Corrección de odometría: Calculo la diferencia (offset) entre la posición reportada por la odometría bruta (```HAL.getOdom```) y la posición visual calculada.
-- Navegación ciega: Cuando no hay tags visibles, mantengo la localización sumando el último offset calculado a la odometría actual.
+Se ha diseñado un enfoque que combina la corrección visual con la estimación incremental por odometría:
+
+- Estimación visual (Prioritaria): Si hay algún tag en pantalla, la pose del robot se sobrescribe directamente con el cálculo absoluto derivado del PnP de la baliza más grande. Esta pose se almacena en `global_estimated_pose` y sirve como nueva base de referencia.
+
+- Navegación ciega: Cuando el robot pierde de vista los tags, la odometría absoluta de HAL no se usa directamente, ya que acumularía error o desvíos con respecto al mapa global. En su lugar, el algoritmo calcula frame a frame la diferencia de desplazamiento ocurrida en esa única iteración del bucle (`odom - last_odom`). Estos diferenciales (`delta_x`, `delta_y`, `delta_yaw`) se suman de manera acumulativa a la última pose estimada por visión, manteniendo una trayectoria continua y suave en zonas ciegas.
 
 ### Navegación
 
-He gobernado el comportamiento del robot mediante una máquina de estados. Gestiono los estados a través de la variable ```nav_state```:
-- Estado **AVOID**:
-  - He programado que se active si el sensor láser detecta cualquier obstáculo por debajo de un umbral crítico.
-  - En este estado, el robot ejecuta una maniobra de retroceso y giro.
-  - Utilizo histéresis para evitar oscilaciones en el comportamiento.
+El comportamiento de exploración del entorno está gobernado por una máquina de estados finitos que guía al robot deambulando por el espacio. Los estados se gestionan a través de la variable `explore_state`:
 
-- Estado **ADVANCE** :
-  - He configurado que se active automáticamente cuando la variable ```tag_detected``` es verdadera.
-  - He implementado un controlador proporcional que ajusta la velocidad angular basándose en el error horizontal del centro del tag en la imagen (```error_x```).
+- `WANDER_FWD`: El robot se desplaza en línea recta (`HAL.setV(0.5)`) explorando el mapa doméstico en busca de balizas. Permanece en este estado hasta que el sensor láser detecta una pared u obstáculo frontal por debajo del umbral de seguridad definido en `OBSTACLE_THRESHOLD`.
 
-    Esto permite al robot alinearse y avanzar hacia la baliza.
+- `PLAN_TURN`: Se activa inmediatamente tras detectar un obstáculo frontal. El robot se detiene por completo y calcula de forma aleatoria un nuevo rumbo objetivo (`goal_yaw`) basándose en su orientación actual y un desfase limitado por `MAX_YAW_DELTA`. Una vez fijado el rumbo, transiciona al siguiente estado.
 
-- Estado **SEARCH**:
-  - He implementado un ciclo temporizado con ```search_timer``` que alterna entre dos fases:
-    - Giro (```SEARCH_SPIN```): El robot gira para buscar un tag.
-    - Desplazamiento (```SEARCH_MOVE```): El robot avanza brevemente para cambiar de zona.
-
-    Incluyo una comprobación con el láser (```min_front```) para abortar el avance y volver a girar si se detecta una pared, evitando activar el estado AVOID innecesariamente.
+- `EXECUTE_TURN`: El robot rota sobre su propio eje central a velocidad angular controlada. Se calcula la distancia angular más corta hacia el objetivo mediante `shortest_angle_diff`. Para suavizar la maniobra y evitar sobreoscilaciones, se aplica un control de velocidad proporcional acotado por `MAX_ANGULAR_VEL`. Cuando el error de rumbo entra dentro de la tolerancia permitida (`YAW_TOLERANCE`), el robot se detiene y regresa al estado `WANDER_FWD` para continuar su marcha.
 
 ### Procesamiento de sensores
-- Láser: Uso la función ```parse_laser_data``` para convertir las lecturas a coordenadas polares, lo que me permite analizar distancias en diferentes sectores.
-- Odometría: Normalizo los ángulos utilizando la función ```normalize_angle``` y promedio las orientaciones visuales con ```circular_mean``` para evitar errores matemáticos.
-- Gestión de mapa: Cargo la configuración de las balizas desde un archivo YAML, almacenando sus posiciones en la variable ```tags_world```.
+- Láser: Se implementa la función `check_front_obstacle` de manera adaptativa. Analiza las muestras centrales del array de distancias para cubrir el sector frontal de avance del robot, filtrando lecturas fuera de rango o inferiores a la distancia mínima física del propio chasis (`LASER_MIN_DIST`).
+
+- Odometría y cálculos: Los cálculos angulares están protegidos contra desbordamientos matemáticos mediante `normalize_angle` y `shortest_angle_diff`, lo que asegura que las transiciones de -pi a +pi no generen discontinuidades ni giros infinitos en el robot. Los datos de odometría del entorno se tratan como incrementos relativos.
+
+- Gestión del mapa: Al arrancar el script, se parsea el archivo de configuración estructurado en formato YAML (`apriltags_poses.yaml`) que contiene las matrices de transformación RT y posiciones absolutas tridimensionales de cada AprilTag del escenario.
 
 ## Vídeo
 En este vídeo se muestra la práctica funcionando:
