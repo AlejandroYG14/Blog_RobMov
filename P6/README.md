@@ -42,10 +42,17 @@ El comportamiento de exploración del entorno está gobernado por una máquina d
 
 - Gestión del mapa: Al arrancar el script, se parsea el archivo de configuración estructurado en formato YAML (`apriltags_poses.yaml`) que contiene las matrices de transformación RT y posiciones absolutas tridimensionales de cada AprilTag del escenario.
 
-## Vídeo
-En este vídeo se muestra la práctica funcionando:
+## Vídeos
+En estos vídeos se muestra la práctica funcionando en diferentes ejecuciones:
 
-https://github.com/user-attachments/assets/79595034-6dff-4014-904b-56cd077adcc1
+
+https://github.com/user-attachments/assets/ac093c22-53e6-40c2-89ec-86453aa5fa69
+
+
+https://github.com/user-attachments/assets/390aafc7-65da-4e1c-8730-49e85b0c7153
+
+
+https://github.com/user-attachments/assets/ae895500-31e4-402c-88e8-016f7786cd1f
 
 
 ## Conclusión
