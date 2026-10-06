@@ -21,7 +21,7 @@ El sistema se ejecuta en un bucle continuo a 50 Hz, actualizando las velocidades
 En este estado la aspiradora se desplaza hacia adelante realizando un patrón de movimiento que combina:
 
 Espiral:
-Aumento progresivo de la velocidad lineal (v_forward) mientras mantiene un giro constante (W = 2.0), cubriendo el área de forma circular y eficiente.
+Aumento progresivo de la velocidad lineal (`v_forward`) mientras mantiene un giro constante (W = 2.0), cubriendo el área de forma circular y eficiente.
 
 Recta:
 Avanza sin girar durante unos segundos para continuar la limpieza en línea recta y limpiar en otra zona.
@@ -47,9 +47,12 @@ Al finalizar el giro, vuelve al estado FORWARD para continuar limpiando.
 
 ## Funcionamiento
 
-https://github.com/user-attachments/assets/754486b6-0b23-4b84-b45d-54d19cbe3e7d
+https://github.com/user-attachments/assets/16101cfc-b1d0-4923-8ef4-12e3fcdc84de
+
+
 
 Tras un rato de ejecución obtenemos este resultado:
 
-<img width="1103" height="329" alt="funcionamiento" src="https://github.com/user-attachments/assets/512b0a7b-839f-44d2-b417-10f7fa941581" />
+<img width="767" height="556" alt="resultado" src="https://github.com/user-attachments/assets/23aef4e8-eb3c-4709-8e3b-baf6d830e976" />
+
 
