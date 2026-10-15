@@ -66,14 +66,29 @@ También observé que, dependiendo de la carga de la CPU, el coche se comporta d
 Cuando el procesador está sobrecargado, la frecuencia del bucle de control no se mantiene constante, lo que hace que el coche responda peor y aumenten las oscilaciones.
 
 ## Vídeos
-En este vídeo se observa cómo el coche completa una vuelta al circuito en 53 segundos. Sin embargo, el mejor tiempo no lo he grabado, que han sido 50 segundos.
-
-https://github.com/user-attachments/assets/96f35e2f-e85d-405e-8755-0a32fb9d3bc6
+En este vídeo se observa cómo el coche completa una vuelta al circuito simple en 43 segundos:
 
 
-En este otro vídeo se observa cómo el coche se recupera al perder la línea.
+https://github.com/user-attachments/assets/fccf4cfe-ce6c-4986-81aa-2d42e0a1da9d
 
-https://github.com/user-attachments/assets/bca9bd35-0419-4e17-a2af-eff2e54339f5
+
+Aquí vemos su funcionamiento en el circuito de Montmeló:
+
+
+https://github.com/user-attachments/assets/6b2ae7d2-daac-4f7e-9093-e8d65e7e7cfd
+
+
+En este otro vídeo vemos su recorrido en el circuito de Nürburgring:
+
+
+https://github.com/user-attachments/assets/e9cefc20-41b8-4925-b9a4-8f424be78480
+
+
+Y aquí se observa cómo el coche se recupera al perder la línea:
+
+
+https://github.com/user-attachments/assets/1a98281b-4a4f-49f5-a438-44c4f2cca0cb
+
 
 ## Conclusiones
 
