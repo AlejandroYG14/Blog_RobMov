@@ -65,6 +65,6 @@ Para depurar y mostrar el funcionamiento del algoritmo en tiempo real, se genera
 ## Vídeo
 Aquí tenemos un ejemplo de ejecución marcando cuatro destinos:
 
-https://github.com/user-attachments/assets/57094417-6a01-4524-8964-71b957473b70
 
+https://github.com/user-attachments/assets/e2cef4b3-d085-4bcd-8a3f-8c2ea3601ac5
 
